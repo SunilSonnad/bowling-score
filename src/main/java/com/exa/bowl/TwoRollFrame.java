@@ -18,7 +18,7 @@ public class TwoRollFrame extends Frame {
 	 * @return
 	 */
 	protected boolean isSpare() {
-		return rolls.size() == 2 && pinsKnocked() == MAX_PINS;
+		return rolls.size() >= 2 && (rolls.get(0) + rolls.get(1)) == MAX_PINS;
 	}
 
 	/**
@@ -34,36 +34,35 @@ public class TwoRollFrame extends Frame {
 		int sum = 0;
 
 		// if we have already calculated the score for this frame.
-		if(this.score != INCOMPLETE) {
+		if(this.score != INCOMPLETE_FRAME) {
 			return this.score;
-		}
-
-		// if frame not complete, score cannot be calculated.
-		if(!isComplete()) {
-			return INCOMPLETE;
-		}
-		
-		if((isStrike() || isSpare()) && !hasNext()) {
-			return INCOMPLETE;
-		}
-		
-		// if this frame is a strike
-		if(isStrike()) {
-			sum = this.next.pinsKnockedInTwoRolls();
-		}
-		// if this frame is a spare
-		else if(isSpare()) {
-			sum = this.next.pinsKnockedInFirstRoll();
-		}
-		
-		// cannot calculate yet.
-		if(sum == INCOMPLETE) {
-			return INCOMPLETE;
 		}
 		
 		// get the score from previous frame to add to it.
 		if(this.previous != null) {
 			sum += this.previous.score();
+		}
+
+		// if frame not complete, score cannot be calculated.
+		if(!isComplete()) {
+			return sum;
+		}
+		
+		if((isStrike() || isSpare()) && !hasNext()) {
+			return sum;
+		}
+		
+		// if this frame is a strike
+		if(isStrike()) {
+			int extra = this.next.pinsKnockedInTwoRolls();
+			if(extra == -1) {
+				return sum;
+			}
+			sum += extra;
+		}
+		// if this frame is a spare
+		else if(isSpare()) {
+			sum += this.next.pinsKnockedInFirstRoll();
 		}
 		
 		// add pins from this frame.
@@ -76,7 +75,7 @@ public class TwoRollFrame extends Frame {
 	protected int pinsKnockedInTwoRolls() {
 		
 		if(!isComplete()) {
-			return INCOMPLETE;
+			return INCOMPLETE_FRAME;
 		}
 		
 		if(!isStrike()) {
@@ -89,7 +88,7 @@ public class TwoRollFrame extends Frame {
 		}
 		else {
 			// no next, cannot yet calculate.
-			return INCOMPLETE;
+			return INCOMPLETE_FRAME;
 		}
 		
 	}

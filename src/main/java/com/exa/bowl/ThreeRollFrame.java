@@ -7,7 +7,7 @@ public class ThreeRollFrame extends TwoRollFrame {
 	 * @return
 	 */
 	@Override
-	public boolean isComplete() {
+	protected boolean isComplete() {
 		if(isStrike() || isSpare()) {
 			return rolls.size() == 3;
 		}
@@ -19,7 +19,7 @@ public class ThreeRollFrame extends TwoRollFrame {
 		int sum = 0;
 
 		// if we have already calculated the score for this frame.
-		if(this.score != INCOMPLETE) {
+		if(this.score != INCOMPLETE_FRAME) {
 			return this.score;
 		}
 		
@@ -28,9 +28,9 @@ public class ThreeRollFrame extends TwoRollFrame {
 			sum += this.previous.score();
 		}
 		
-		// if frame not complete, score cannot be calculated.
+		// if frame not complete, use previous score.
 		if(!isComplete()) {
-			return INCOMPLETE;
+			return sum;
 		}
 		
 		// add pins from this frame.
@@ -40,11 +40,11 @@ public class ThreeRollFrame extends TwoRollFrame {
 	}
 
 	@Override
-	public int pinsKnockedInTwoRolls() {
+	protected int pinsKnockedInTwoRolls() {
 		
 		// if at least two rolls are not done.
 		if(rolls.size() < 2) {
-			return INCOMPLETE;
+			return INCOMPLETE_FRAME;
 		}
 		
 		return rolls.get(0) + rolls.get(1);

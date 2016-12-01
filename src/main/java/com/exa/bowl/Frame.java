@@ -9,11 +9,11 @@ public abstract class Frame {
 	Frame previous = null;
 
 	protected static final int MAX_PINS = 10;
-	protected static final int INCOMPLETE = -1;
+	protected static final int INCOMPLETE_FRAME = -1;
 
 	// Max 3 rolls per frame.
 	List<Integer> rolls = new ArrayList<>(3);
-	protected int score = INCOMPLETE;
+	protected int score = INCOMPLETE_FRAME;
 
 	/**
 	 * returns true if the next frame has started.
@@ -63,6 +63,15 @@ public abstract class Frame {
 	protected int pinsKnockedInFirstRoll() {
 		return rolls.get(0);
 	}
+	
+	/**
+	 * Returns the pins knocked in the next two rolls.
+	 * If this frame has a strike then get score from first
+	 * roll of next frame as well.
+	 * Returns -1 if the frames are not complete.
+	 * @return
+	 */
+	protected abstract int pinsKnockedInTwoRolls();
 
 	/**
 	 * pins knocked down in this roll
@@ -79,13 +88,5 @@ public abstract class Frame {
 	 * else just sum of pins knocked in this frame.
 	 */
 	public abstract int score();
-
-	/**
-	 * Returns the pins knocked in the next two rolls.
-	 * If this frame has a strike then get scroe from first
-	 * roll of next frame as well.
-	 * @return
-	 */
-	protected abstract int pinsKnockedInTwoRolls();
 
 }
