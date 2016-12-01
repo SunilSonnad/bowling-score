@@ -1,4 +1,4 @@
-The features on the system are:
+The features on the bowling system are:
 
 * One player only
 * In each frame, the bowler has 2 tries to knock down all the pins
@@ -32,10 +32,7 @@ bowlingGame.roll(noOfPins);
 bowlingGame.score();
 ```
 
-OPTIONAL
---------
-
-If time permits implement the rules for the last frame (i.e, 10th frame)
+Rules for the last frame (i.e, 10th frame)
 
 * In the last frame, if the bowler bowls a spare, they get another bowl. The score of this frame is the sum of the three bowls.
 * In the last frame, if the bowler bowls a strike, they get another 2 bowls. The score of this frame is the sum of the three bowls
