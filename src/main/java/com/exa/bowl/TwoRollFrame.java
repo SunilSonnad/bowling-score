@@ -1,8 +1,16 @@
 package com.exa.bowl;
 
+/**
+ * This class implements the regular frame of the bowling game.
+ * Each frame consists of two rolls, unless the first one is a strike,
+ * in which case it is one roll.
+ * @author sunilsonnad
+ *
+ */
 public class TwoRollFrame extends Frame {
 
-	protected boolean isComplete() {
+	@Override
+	public boolean isComplete() {
 		return rolls.size() == 2 || isStrike();
 	}
 	

@@ -36,7 +36,7 @@ public abstract class Frame {
 	 * Returns true if it is a strike or all rolls are done.
 	 * @return
 	 */
-	protected abstract boolean isComplete();
+	public abstract boolean isComplete();
 
 	/**
 	 * Returns true if it is a spare.

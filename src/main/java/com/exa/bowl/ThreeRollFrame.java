@@ -1,8 +1,16 @@
 package com.exa.bowl;
 
+/**
+ * This class implements the last frame of the bowling game.
+ * If the first one is a strike or the second a spare, then this frame
+ * adds one more bonus roll to the frame.
+ * @author sunilsonnad
+ *
+ */
 public class ThreeRollFrame extends Frame {
 
-	protected boolean isComplete() {
+	@Override
+	public boolean isComplete() {
 		if(isStrike() || isSpare()) {
 			return rolls.size() == 3;
 		}
