@@ -36,4 +36,16 @@ public class TwoRollFrameTest {
 		assertTrue(fr.isComplete());
 	}
 
+	@Test(expected=RuntimeException.class)
+	public void testMoreThan10PinsInStrike() {
+		Frame fr = new TwoRollFrame();
+		fr.roll(19);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testMoreThan10Pins() {
+		Frame fr = new TwoRollFrame();
+		fr.roll(5);
+		fr.roll(9);
+	}
 }

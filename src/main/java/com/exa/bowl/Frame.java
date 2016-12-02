@@ -91,7 +91,26 @@ public abstract class Frame {
 	 * @param noOfPins
 	 */
 	public void roll(int noOfPins) {
+		validatePinsInFrame(noOfPins);
 		rolls.add(noOfPins);
+	}
+
+	/**
+	 * Throws RuntimeException if the total pins in the frames dont
+	 * add up to 10 or less.
+	 * @param noOfPins
+	 */
+	protected abstract void validatePinsInFrame(int noOfPins);
+
+	/**
+	 * Throws RuntimeException if the total pins in the frames dont
+	 * add up to 10 or less.
+	 * @param noOfPins
+	 */
+	protected void validateNoOfPins(int noOfPins) {
+		if(noOfPins > 10) {
+			throw new RuntimeException("Cannot have more than 10 pins in one roll");
+		}
 	}
 
 	/**

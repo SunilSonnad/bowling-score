@@ -14,6 +14,7 @@ public class TwoRollFrame extends Frame {
 		return rolls.size() == 2 || isStrike();
 	}
 	
+	@Override
 	protected int pinsKnockedInTwoRolls() {
 		if(!isComplete()) {
 			return INCOMPLETE_FRAME;
@@ -73,5 +74,13 @@ public class TwoRollFrame extends Frame {
 		sum += pinsKnocked();
 		
 		return this.score = sum;
+	}
+
+	/**
+	 * In a regular frame, the sum of two rolls should not be greater than 10.
+	 */
+	@Override
+	protected void validatePinsInFrame(int noOfPins) {
+		validateNoOfPins(this.pinsKnocked() + noOfPins);
 	}
 }

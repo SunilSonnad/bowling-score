@@ -214,4 +214,15 @@ public class BowlingGameTest {
 		game.roll(10);
 		game.roll(10);
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testMoreThan10PinsStrike() {
+		game.roll(11);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testMoreThan10Pins() {
+		game.roll(4);
+		game.roll(8);
+	}
 }

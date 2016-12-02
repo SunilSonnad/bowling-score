@@ -42,5 +42,18 @@ public class ThreeRollFrameTest {
 		fr.roll(10);
 		assertTrue(fr.isComplete());
 	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testMoreThan10PinsInStrike() {
+		Frame fr = new ThreeRollFrame();
+		fr.roll(15);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testMoreThan10Pins() {
+		Frame fr = new ThreeRollFrame();
+		fr.roll(5);
+		fr.roll(8);
+	}
 
 }
