@@ -10,6 +10,7 @@ import java.util.List;
  */
 public abstract class Frame {
 
+	// the previous and the next frames.
 	protected Frame next = null;
 	protected Frame previous = null;
 
@@ -21,7 +22,7 @@ public abstract class Frame {
 	protected int score = INCOMPLETE_FRAME;
 
 	/**
-	 * returns true if the next frame has started.
+	 * Returns true if the next frame has started.
 	 * @return
 	 */
 	protected boolean hasNext() {
@@ -58,7 +59,7 @@ public abstract class Frame {
 	}
 
 	/**
-	 * sum of pins knocked in this frame
+	 * Returns sum of pins knocked in this frame
 	 */
 	protected int pinsKnocked() {
 		int sum = 0;
@@ -94,10 +95,10 @@ public abstract class Frame {
 	}
 
 	/**
-	 * Returns the score for this frame
+	 * Returns the score for this frame.
 	 * If strike then includes sum of pins knocked in next two rolls.
 	 * If spare then includes sum of pins knocked in next roll.
-	 * else just sum of pins knocked in this frame.
+	 * Else just sum of pins knocked in this frame.
 	 */
 	public abstract int score();
 
