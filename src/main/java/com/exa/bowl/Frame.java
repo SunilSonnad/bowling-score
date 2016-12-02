@@ -108,7 +108,7 @@ public abstract class Frame {
 	 * @param noOfPins
 	 */
 	protected void validateNoOfPins(int noOfPins) {
-		if(noOfPins > 10) {
+		if(noOfPins > 10 || noOfPins < 0) {
 			throw new RuntimeException("Cannot have more than 10 pins in one roll");
 		}
 	}

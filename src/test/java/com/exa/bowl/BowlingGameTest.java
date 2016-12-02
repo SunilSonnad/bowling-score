@@ -225,4 +225,20 @@ public class BowlingGameTest {
 		game.roll(4);
 		game.roll(8);
 	}
+
+	@Test
+	public void testNoCorruption() {
+		// test if there is no corruption due to invalid pins addition.
+		// the invalid pins should not be added to the frame.
+		
+		game.roll(5);
+		try {
+			game.roll(9);
+			fail("should not pass with 5 and 9");
+		}
+		catch(RuntimeException e) {
+			game.roll(3);
+		}
+		assertEquals(8, game.score());
+	}
 }

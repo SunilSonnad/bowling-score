@@ -2,50 +2,58 @@ package com.exa.bowl;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TwoRollFrameTest {
 
+	TwoRollFrame frame;
+	
+	@Before
+	public void setup() {
+		frame = new TwoRollFrame();
+	}
+	
 	@Test
 	public void testIsComplete() {
-		Frame fr = new TwoRollFrame();
-		fr.roll(4);
-		assertTrue(!fr.isComplete());
+		frame.roll(4);
+		assertTrue(!frame.isComplete());
 		
-		fr.roll(3);
-		assertTrue(fr.isComplete());
+		frame.roll(3);
+		assertTrue(frame.isComplete());
 	}
 	
 	@Test
 	public void testStrike() {
 		
 		// if you have a strike.
-		Frame fr = new TwoRollFrame();
-		fr.roll(10);
-		assertTrue(fr.isComplete());
+		frame.roll(10);
+		assertTrue(frame.isComplete());
 	}
 	
 	@Test
 	public void testSpare() {
 		
 		// if you have a spare.
-		Frame fr = new TwoRollFrame();
-		fr.roll(5);
-		assertTrue(!fr.isComplete());
-		fr.roll(5);
-		assertTrue(fr.isComplete());
+		frame.roll(5);
+		assertTrue(!frame.isComplete());
+		frame.roll(5);
+		assertTrue(frame.isComplete());
 	}
 
 	@Test(expected=RuntimeException.class)
 	public void testMoreThan10PinsInStrike() {
-		Frame fr = new TwoRollFrame();
-		fr.roll(19);
+		frame.roll(19);
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void testMoreThan10Pins() {
-		Frame fr = new TwoRollFrame();
-		fr.roll(5);
-		fr.roll(9);
+		frame.roll(5);
+		frame.roll(9);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testNegativePins() {
+		frame.roll(-9);
 	}
 }

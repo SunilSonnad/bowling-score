@@ -2,58 +2,66 @@ package com.exa.bowl;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ThreeRollFrameTest {
 
+	ThreeRollFrame frame;
+	
+	@Before
+	public void setup() {
+		frame = new ThreeRollFrame();
+	}
+	
 	@Test
 	public void testIsComplete() {
-		Frame fr = new ThreeRollFrame();
-		fr.roll(4);
-		assertTrue(!fr.isComplete());
+		frame.roll(4);
+		assertTrue(!frame.isComplete());
 		
-		fr.roll(3);
+		frame.roll(3);
 		// frame complete after 2 rolls adding less than 10
-		assertTrue(fr.isComplete());
+		assertTrue(frame.isComplete());
 	}
 	
 	@Test
 	public void testStrike() {
 		
 		// if you have a strike you need all 3 rolls.
-		Frame fr = new ThreeRollFrame();
-		fr.roll(10);
-		assertTrue(!fr.isComplete());
-		fr.roll(10);
-		assertTrue(!fr.isComplete());
-		fr.roll(10);
-		assertTrue(fr.isComplete());
+		frame.roll(10);
+		assertTrue(!frame.isComplete());
+		frame.roll(10);
+		assertTrue(!frame.isComplete());
+		frame.roll(10);
+		assertTrue(frame.isComplete());
 	}
 	
 	@Test
 	public void testSpare() {
 		
 		// if you have a spare you need all 3 rolls.
-		Frame fr = new ThreeRollFrame();
-		fr.roll(5);
-		assertTrue(!fr.isComplete());
-		fr.roll(5);
-		assertTrue(!fr.isComplete());
-		fr.roll(10);
-		assertTrue(fr.isComplete());
+		frame.roll(5);
+		assertTrue(!frame.isComplete());
+		frame.roll(5);
+		assertTrue(!frame.isComplete());
+		frame.roll(10);
+		assertTrue(frame.isComplete());
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void testMoreThan10PinsInStrike() {
-		Frame fr = new ThreeRollFrame();
-		fr.roll(15);
+		frame.roll(15);
 	}
 	
 	@Test(expected=RuntimeException.class)
 	public void testMoreThan10Pins() {
-		Frame fr = new ThreeRollFrame();
-		fr.roll(5);
-		fr.roll(8);
+		frame.roll(5);
+		frame.roll(8);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testNegativePins() {
+		frame.roll(-7);
 	}
 
 }
