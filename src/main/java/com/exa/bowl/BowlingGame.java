@@ -1,5 +1,10 @@
 package com.exa.bowl;
 
+/**
+ * The BowlingGame interface
+ * @author sunilsonnad
+ *
+ */
 public interface BowlingGame {
 
 	/**
@@ -9,7 +14,8 @@ public interface BowlingGame {
 	public void roll(int noOfPins);
 	
 	/**
-	 * returns the score at a given instance.
+	 * returns the score at a given instance. If a frame is not
+	 * complete, then returns the previous valid score.
 	 * @return
 	 */
 	public int score();

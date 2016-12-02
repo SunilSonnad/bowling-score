@@ -3,10 +3,15 @@ package com.exa.bowl;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The abstract class Frame has the generic methods of the frame.
+ * @author sunilsonnad
+ *
+ */
 public abstract class Frame {
 
-	Frame next = null;
-	Frame previous = null;
+	protected Frame next = null;
+	protected Frame previous = null;
 
 	protected static final int MAX_PINS = 10;
 	protected static final int INCOMPLETE_FRAME = -1;
@@ -28,22 +33,29 @@ public abstract class Frame {
 	}
 
 	/**
-	 * Returns true if it is a strike
+	 * Returns true if it is a strike or all rolls are done.
 	 * @return
 	 */
-	protected abstract boolean isStrike();
+	protected abstract boolean isComplete();
 
 	/**
 	 * Returns true if it is a spare.
 	 * @return
 	 */
-	protected abstract boolean isSpare();
-
+	protected boolean isSpare() {
+		return rolls.size() >= 2 && (rolls.get(0) + rolls.get(1)) == MAX_PINS;
+	}
+	
 	/**
-	 * Returns true if it is a strike or all rolls are done.
+	 * Returns true if it is a strike
 	 * @return
 	 */
-	protected abstract boolean isComplete();
+	protected boolean isStrike() {
+		if(rolls.size() < 1) {
+			return false;
+		}
+		return rolls.get(0) == MAX_PINS;
+	}
 
 	/**
 	 * sum of pins knocked in this frame

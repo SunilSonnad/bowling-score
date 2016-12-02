@@ -1,39 +1,61 @@
 package com.exa.bowl;
 
-import java.util.LinkedList;
-
 public class BowlingGameImpl implements BowlingGame {
 	
-	//should be a doubly linked list.
-	private LinkedList<Frame> frames = new LinkedList<>();
+	//doubly linked list.
+	private Frame frame;
+	
+	//count the frames.
+	private int currentFrameNumber = 0;
 
 	public BowlingGameImpl() {
-		frames.addFirst(new TwoRollFrame());
+		frame = new TwoRollFrame();
+		currentFrameNumber++;
 	}
 	
 	public void roll(int noOfPins) {
+		if(frame.isComplete()) {
+			createFrame();
+		}
+		frame.roll(noOfPins);
+	}
+	
+	public int score() {
+		return frame.score();
+	}
+
+	private void createFrame() {
+		Frame current = frame;
+		frame = newFrame();
 		
-		if(frames.getLast().isComplete()) {
-			
-			Frame current = frames.getLast();
-			
-			if(frames.size() < 9) {
-				frames.add(new TwoRollFrame());
-			}
-			else {
-				frames.add(new ThreeRollFrame());
-			}
-			
-			current.next = frames.getLast();
-			frames.getLast().previous = current;
+		current.next = frame;
+		frame.previous = current;
+		currentFrameNumber++;
+	}
+
+	private boolean isLastFrame() {
+		return currentFrameNumber == 9;
+	}
+	
+	private boolean isGameOver() {
+		return currentFrameNumber >= 10;
+	}
+	
+	/*
+	 * This method returns the appropriate implementation
+	 * of the frame.
+	 */
+	private Frame newFrame() {
+		if(isGameOver()) {
+			throw new RuntimeException("GameOver!");
 		}
 		
-		frames.getLast().roll(noOfPins);
+		if(isLastFrame()) {
+			return new ThreeRollFrame();
+		}
+		else {
+			return new TwoRollFrame();
+		}
 	}
-
-	public int score() {
-
-		return frames.getLast().score();
-	}
-
+	
 }

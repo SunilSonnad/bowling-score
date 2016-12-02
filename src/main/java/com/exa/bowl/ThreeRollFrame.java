@@ -1,17 +1,22 @@
 package com.exa.bowl;
 
-public class ThreeRollFrame extends TwoRollFrame {
+public class ThreeRollFrame extends Frame {
 
-	/**
-	 * Returns true if it is a strike or no:of rolls is 2.
-	 * @return
-	 */
-	@Override
 	protected boolean isComplete() {
 		if(isStrike() || isSpare()) {
 			return rolls.size() == 3;
 		}
 		return rolls.size() == 2;
+	}
+	
+	protected int pinsKnockedInTwoRolls() {
+		
+		// if at least two rolls are not done.
+		if(rolls.size() < 2) {
+			return INCOMPLETE_FRAME;
+		}
+		
+		return rolls.get(0) + rolls.get(1);
 	}
 
 	@Override
@@ -23,7 +28,7 @@ public class ThreeRollFrame extends TwoRollFrame {
 			return this.score;
 		}
 		
-		// get the score from previous frame to add to it.
+		// get the score from previous frame.
 		if(this.previous != null) {
 			sum += this.previous.score();
 		}
@@ -37,16 +42,5 @@ public class ThreeRollFrame extends TwoRollFrame {
 		sum += pinsKnocked();
 		
 		return this.score = sum;
-	}
-
-	@Override
-	protected int pinsKnockedInTwoRolls() {
-		
-		// if at least two rolls are not done.
-		if(rolls.size() < 2) {
-			return INCOMPLETE_FRAME;
-		}
-		
-		return rolls.get(0) + rolls.get(1);
 	}
 }

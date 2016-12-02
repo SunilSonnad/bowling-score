@@ -23,12 +23,15 @@ public class BowlingGameTest {
 	
 	@Test
 	public void testSimpleFirstFrame() {
-		game.roll(3);
+		game.roll(3);//1 frame
 		game.roll(4);
 		
 		assertEquals(7, game.score());
 	}
 	
+	/* After a strike, wait for 2 more rolls to get the score.
+	 * else get the previous valid score.
+	 */
 	@Test
 	public void testStrikeIncomplete() {
 		game.roll(10);
@@ -36,6 +39,10 @@ public class BowlingGameTest {
 		assertEquals(0, game.score());
 	}
 
+	/*
+	 *  After a spare, wait for 1 more roll to get the score.
+	 *  else get the previous valid score.
+	 */
 	@Test
 	public void testSpareIncomplete() {
 		game.roll(2);
@@ -54,25 +61,30 @@ public class BowlingGameTest {
 		assertEquals(15, game.score());
 		
 		game.roll(4);
+		// score after two frames.
 		assertEquals(24, game.score());
 	}
 	
 	@Test
 	public void testStrikeComplete() {
-		game.roll(10);
-		game.roll(8);
+		game.roll(10);//1
 		
+		game.roll(8);//2
+		
+		// after strike + 1 roll
 		assertEquals(0, game.score());
+		
 		game.roll(1);
+		// after strike + 2 rolls
 		assertEquals(28, game.score());
 	}
 	
 	@Test
 	public void testCombination() {
-		game.roll(10);
-		game.roll(2);
+		game.roll(10);//1
+		game.roll(2);//2
 		game.roll(8);
-		game.roll(1);
+		game.roll(1);//3
 		game.roll(2);
 		assertEquals(34, game.score());
 	}
@@ -136,6 +148,9 @@ public class BowlingGameTest {
 		
 	}
 	
+	/*
+	 * All 10 frames are gutter.
+	 */
 	@Test
 	public void testAllZero() {
 		game.roll(0);
@@ -161,6 +176,9 @@ public class BowlingGameTest {
 		assertEquals(0, game.score());
 	}
 	
+	/*
+	 * All frames are strikes.
+	 */
 	@Test
 	public void testAllStrike() {
 		game.roll(10);
@@ -178,5 +196,22 @@ public class BowlingGameTest {
 		game.roll(10);
 		game.roll(10);
 		assertEquals(300, game.score());
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testGameOver() {
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
+		game.roll(10);
 	}
 }
