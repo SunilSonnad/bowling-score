@@ -7,14 +7,9 @@ public class BowlingGameImpl implements BowlingGame {
 	
 	//count the frames.
 	private int currentFrameNumber = 0;
-
-	public BowlingGameImpl() {
-		frame = new TwoRollFrame();
-		currentFrameNumber++;
-	}
 	
 	public void roll(int noOfPins) {
-		if(frame.isComplete()) {
+		if(frame == null || frame.isComplete()) {
 			createFrame();
 		}
 		frame.roll(noOfPins);
@@ -28,8 +23,11 @@ public class BowlingGameImpl implements BowlingGame {
 		Frame current = frame;
 		frame = newFrame();
 		
-		current.next = frame;
-		frame.previous = current;
+		if(current != null) {
+			current.next = frame;
+			frame.previous = current;
+		}
+
 		currentFrameNumber++;
 	}
 
