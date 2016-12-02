@@ -23,7 +23,7 @@ public class TwoRollFrame extends Frame {
 			return pinsKnocked();
 		}
 		
-		// if it is a strike.
+		// if it is a strike, then get next(2nd) roll from next frame.
 		if(hasNext()) {
 			return pinsKnocked() + this.next.pinsKnockedInFirstRoll();
 		}
